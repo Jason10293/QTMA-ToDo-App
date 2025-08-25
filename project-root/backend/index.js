@@ -1,3 +1,4 @@
+import cors from "cors";
 import { mongoDbURL, PORT } from "./config.js";
 import express from "express";
 import mongoose from "mongoose";

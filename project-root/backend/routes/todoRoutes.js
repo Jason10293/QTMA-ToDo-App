@@ -35,6 +35,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//detele todo
 router.delete("/:todoId", async (request, response) => {
   try {
     const { todoId } = request.params;
@@ -51,10 +52,10 @@ router.delete("/:todoId", async (request, response) => {
   }
 });
 
+//update todo
 router.patch("/:todoId", async (req, res) => {
   const { todoId } = req.params;
   const { title: newTitle } = req.body;
-  console.log(todoId);
   try {
     const updatedTask = await toDo.findOneAndUpdate(
       { _id: todoId },

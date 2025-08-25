@@ -5,6 +5,12 @@ import mongoose from "mongoose";
 import todoRoutes from "./routes/todoRoutes.js";
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // or whatever port your frontend runs on
+  })
+);
+
 app.use(express.json());
 
 app.use("/api/todos", todoRoutes);

@@ -6,6 +6,7 @@ import { useState } from "react";
 const ToDoItem = ({ todo, deleteTodo, updateTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedText, setUpdatedText] = useState(todo.title);
+  const [isCompleted, setIsCompleted] = useState(todo.completed);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -13,18 +14,30 @@ const ToDoItem = ({ todo, deleteTodo, updateTodo }) => {
 
   const handleSave = () => {
     if (updatedText.trim()) {
-      updateTodo(todo._id, updatedText);
+      updateTodo(todo._id, { title: updatedText });
       setIsEditing(false);
     }
   };
 
   const handleCancel = () => {
     setIsEditing(false);
+    setUpdatedText(todo.title);
+  };
+
+  const handleCompleted = (e) => {
+    const newCompletionStatus = !isCompleted;
+    setIsCompleted(newCompletionStatus);
+    updateTodo(todo._id, { completed: newCompletionStatus });
   };
 
   return (
     <div className="tasks">
-      <input className="check" type="checkbox" />
+      <input
+        className="check"
+        type="checkbox"
+        checked={isCompleted}
+        onChange={handleCompleted}
+      />
       {isEditing ? (
         <>
           <input

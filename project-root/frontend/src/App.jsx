@@ -40,11 +40,12 @@ const App = () => {
     }
   };
   //function to update todos
-  const updateTodo = async (id, newTitle) => {
+  const updateTodo = async (id, updates) => {
     try {
-      const res = await axios.patch(`http://localhost:5555/api/todos/${id}`, {
-        title: newTitle,
-      });
+      const res = await axios.patch(
+        `http://localhost:5555/api/todos/${id}`,
+        updates
+      );
       setTodos(todos.map((todo) => (todo._id === id ? res.data.data : todo)));
     } catch (error) {
       console.error("Error Updating todo:", error);

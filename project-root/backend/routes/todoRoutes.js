@@ -10,8 +10,10 @@ router.post("/", async (req, res) => {
         message: "send all required fields: title",
       });
     }
+
     const newToDo = {
       title: req.body.title,
+      completed: req.body.completed || false,
     };
 
     const todo = await toDo.create(newToDo);
@@ -55,11 +57,16 @@ router.delete("/:todoId", async (request, response) => {
 //update todo
 router.patch("/:todoId", async (req, res) => {
   const { todoId } = req.params;
-  const { title: newTitle } = req.body;
+  const { title: newTitle, completed: newCompletionStatus } = req.body;
   try {
+    const updateFields = {};
+    if (newTitle !== undefined) updateFields.title = newTitle;
+    if (newCompletionStatus !== undefined)
+      updateFields.completed = newCompletionStatus;
+
     const updatedTask = await toDo.findOneAndUpdate(
       { _id: todoId },
-      { $set: { title: newTitle } },
+      { $set: updateFields },
       { new: true }
     );
 

@@ -13,6 +13,10 @@ app.use(
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  return res.status(234).send("hello world");
+});
+
 app.use("/api/todos", todoRoutes);
 mongoose
   .connect(mongoDbURL)
@@ -25,10 +29,3 @@ mongoose
   .catch((error) => {
     console.error(error);
   });
-
-app.get("/", (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
-  console.log(req.headers);
-  return res.status(234).send("hello world");
-});
